@@ -4,7 +4,6 @@
 // git add .
 // git commit -m "Explique o que você fez hoje"
 // git push
-//
 // =====================================
 // IMPORTAÇÕES
 // =====================================

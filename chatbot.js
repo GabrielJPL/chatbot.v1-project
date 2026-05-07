@@ -2,7 +2,7 @@
 // SALVAR TODA A ALTERAÇÃO DO DIA (OBRIGATÓRIO) 
 // =====================================
 // git add .
-// git commit -m "Explique o que você fez hoje"
+// git commit -m "Explique o que você fez hoje, como se fosse um comentário"
 // git push
 // =====================================
 // IMPORTAÇÕES

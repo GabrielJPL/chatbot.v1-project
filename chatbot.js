@@ -1,4 +1,11 @@
 // =====================================
+// SALVAR TODA A ALTERAÇÃO DO DIA (OBRIGATÓRIO) 
+// =====================================
+// git add .
+// git commit -m "Explique o que você fez hoje"
+// git push
+//
+// =====================================
 // IMPORTAÇÕES
 // =====================================
 const qrcode = require("qrcode-terminal");

@@ -117,3 +117,9 @@ client.on("message", async (msg) => {
     console.error("❌ Erro no processamento da mensagem:", error);
   }
 });
+// =====================================
+// COMANDOS IMPORTANTES
+// =====================================
+// CRTL + C = Finaliza o script
+// Noode + "nome do arquivo" = Inicia o script
+// =====================================

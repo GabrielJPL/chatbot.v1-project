@@ -121,5 +121,5 @@ client.on("message", async (msg) => {
 // COMANDOS IMPORTANTES
 // =====================================
 // CRTL + C = Finaliza o script
-// Noode + "nome do arquivo" = Inicia o script
+// Node + "nome do arquivo" = Inicia o script
 // =====================================

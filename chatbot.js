@@ -46,7 +46,7 @@ client.on("ready", () => {
 // DESCONEXÃO
 // =====================================
 client.on("disconnected", (reason) => {
-  console.log("⚠️ Desconectado:", reason);
+  console.log("⚠️ Desconectado!:", reason);
 });
 
 // =====================================

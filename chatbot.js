@@ -67,8 +67,7 @@ client.on("message", async (msg) => {
     // ❌ IGNORA QUALQUER COISA QUE NÃO SEJA CONVERSA PRIVADA
     if (!msg.from || msg.from.endsWith("@g.us")) return;
 
-    const chat = await msg.getChat();
-    if (chat.isGroup) return; // blindagem extra
+    if (msg.from.endsWith('@g.us')) return; // ignora mensagens de grupos
 
     const texto = msg.body ? msg.body.trim().toLowerCase() : "";
 

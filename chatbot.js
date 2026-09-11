@@ -65,17 +65,23 @@ const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 client.on("message", async (msg) => {
   try {
     // ❌ IGNORA QUALQUER COISA QUE NÃO SEJA CONVERSA PRIVADA
-    if (!msg.from || msg.from.endsWith("@g.us")) return;
-
-    if (msg.from.endsWith('@g.us')) return; // ignora mensagens de grupos
+    if (!msg.from || msg.from.endsWith("@g.us") || msg.author || msg.from.includes("@broadcast") || msg.from.includes("@newsletter")) return;
 
     const texto = msg.body ? msg.body.trim().toLowerCase() : "";
 
-    // Função de digitação
+    // Função de digitação segura (sem quebrar se a API do WhatsApp Web oscilar)
     const typing = async () => {
-      await delay(2000);
-      await chat.sendStateTyping();
-      await delay(2000);
+      await delay(1000);
+      try {
+        await client.pupPage.evaluate((chatId) => {
+          if (window.WWebJS && typeof window.WWebJS.sendChatstate === "function") {
+            window.WWebJS.sendChatstate("typing", chatId);
+          }
+        }, msg.from);
+      } catch (e) {
+        // Ignora caso a versão web do WhatsApp não suporte o estado de digitação no momento
+      }
+      await delay(1500);
     };
 
     // =====================================

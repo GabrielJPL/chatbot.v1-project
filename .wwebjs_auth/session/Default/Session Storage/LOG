@@ -1,2 +1,3 @@
-2026/09/11-11:23:06.644 e5c Creating DB C:\Users\User\OneDrive\Documentos\chatbot1\.wwebjs_auth\session\Default\Session Storage since it was missing.
-2026/09/11-11:23:06.666 e5c Reusing MANIFEST C:\Users\User\OneDrive\Documentos\chatbot1\.wwebjs_auth\session\Default\Session Storage/MANIFEST-000001
+2026/09/11-11:46:03.433 3f68 Reusing MANIFEST C:\Users\User\OneDrive\Documentos\Projetos\chatbot1\.wwebjs_auth\session\Default\Session Storage/MANIFEST-000001
+2026/09/11-11:46:03.435 3f68 Recovering log #3
+2026/09/11-11:46:03.436 3f68 Reusing old log C:\Users\User\OneDrive\Documentos\Projetos\chatbot1\.wwebjs_auth\session\Default\Session Storage/000003.log 

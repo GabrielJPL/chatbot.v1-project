@@ -1,3 +1,5 @@
-2026/09/11-11:46:02.808 46dc Reusing MANIFEST C:\Users\User\OneDrive\Documentos\Projetos\chatbot1\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
-2026/09/11-11:46:02.810 46dc Recovering log #3
-2026/09/11-11:46:02.810 46dc Reusing old log C:\Users\User\OneDrive\Documentos\Projetos\chatbot1\.wwebjs_auth\session\Default\Local Storage\leveldb/000003.log 
+2026/09/11-12:03:47.409 20e8 Reusing MANIFEST C:\Users\User\OneDrive\Documentos\Projetos\chatbot1\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
+2026/09/11-12:03:47.409 20e8 Recovering log #3
+2026/09/11-12:03:47.410 20e8 Level-0 table #3: started
+2026/09/11-12:03:47.416 20e8 Level-0 table #3: 20382 bytes OK
+2026/09/11-12:03:47.422 20e8 Delete type=0 #3

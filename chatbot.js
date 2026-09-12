@@ -71,7 +71,7 @@ client.on("message", async (msg) => {
 
     // Função de digitação segura (sem quebrar se a API do WhatsApp Web oscilar)
     const typing = async () => {
-      await delay(1000);
+      await delay(3000);
       try {
         await client.pupPage.evaluate((chatId) => {
           if (window.WWebJS && typeof window.WWebJS.sendChatstate === "function") {
@@ -98,23 +98,35 @@ client.on("message", async (msg) => {
       else if (hora >= 12 && hora < 18) saudacao = "Boa tarde";
       else saudacao = "Boa noite";
 
-      await client.sendMessage(
-        msg.from,
-        `${saudacao}! 👋\n\n` +
-        `Essa mensagem foi enviada automaticamente pelo robô 🤖\n\n` +
-        `Na versão PRO você vai além: desbloqueie tudo!.\n\n` +
-        '✍️ Envio de textos\n' +
-            '🎙️ Áudios\n' +
-            '🖼️ Imagens\n' +
-            '🎥 Vídeos\n' +
-            '📂 Arquivos\n\n' +
-            '💡 Simulação de "digitando..." e "gravando áudio"\n' +
-            '🚀 Envio de mensagens em massa\n' +
-            '📇 Captura automática de contatos\n' +
-            '💻 Aprenda como deixar o robô funcionando 24 hrs, com o PC desligado\n' +
-            '✅ E 3 Bônus exclusivos\n\n' +
-            '🔥 Adquira a versão PRO agora: https://pay.kiwify.com.br/FkTOhRZ?src=pro');
-      
+      const mensagemBoasVindas =
+        `*${saudacao}!* 👋 Seja bem-vindo à *DeepDevs*.
+
+Somos especializados em soluções digitais completas para impulsionar seu negócio e presença online.
+
+Como podemos ajudar você hoje?
+
+━━━━━━━━━━━━━━━━━━━━━
+📌 *Nossos Serviços:*
+━━━━━━━━━━━━━━━━━━━━━
+
+🌐 *1 - Desenvolvimento de Sites*
+Sites modernos, de alta performance, responsivos e otimizados para converter visitantes em clientes.
+
+🤖 *2 - Chatbots & Automações*
+Atenda seus clientes 24 horas por dia, 7 dias por semana no WhatsApp, sem perder nenhuma oportunidade.
+
+☁️ *3 - Hospedagem & Infraestrutura*
+Hospedamos e cuidamos de toda a estabilidade técnica dos seus projetos para você focar no seu negócio.
+
+━━━━━━━━━━━━━━━━━━━━━
+🌐 *Acesse nosso site oficial:*
+https://deepdevs.site
+━━━━━━━━━━━━━━━━━━━━━
+
+💬 *Digite o número da opção (1, 2 ou 3)* ou descreva como podemos te ajudar!`;
+
+      await client.sendMessage(msg.from, mensagemBoasVindas);
+
     }
 
 

@@ -121,9 +121,7 @@ Hospedamos e cuidamos de toda a estabilidade técnica dos seus projetos para voc
 ━━━━━━━━━━━━━━━━━━━━━
 🌐 *Acesse nosso site oficial:*
 https://deepdevs.site
-━━━━━━━━━━━━━━━━━━━━━
-
-💬 *Digite o número da opção (1, 2 ou 3)* ou descreva como podemos te ajudar!`;
+━━━━━━━━━━━━━━━━━━━━━`;
 
       await client.sendMessage(msg.from, mensagemBoasVindas);
 

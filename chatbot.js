@@ -7,14 +7,87 @@
 // =====================================
 // IMPORTAÇÕES
 // =====================================
+const path = require("path");
+const os = require("os");
 const qrcode = require("qrcode-terminal");
 const { Client, MessageMedia, LocalAuth } = require("whatsapp-web.js");
+
+// Adaptação para Windows: o Chromium ativo mantém arquivos como 'lockfile' abertos.
+// Essa classe evita que o Node caia com EBUSY ao renovar o QR Code ou ao receber LOGOUT.
+class SafeLocalAuth extends LocalAuth {
+  async logout() {
+    if (this.userDataDir) {
+      try {
+        await super.logout();
+      } catch (e) {
+        const msg = e && (e.message || String(e));
+        if (msg.includes("EBUSY") || msg.includes("EPERM") || msg.includes("resource busy")) {
+          return;
+        }
+        console.warn("⚠️ Aviso ao limpar sessão:", msg);
+      }
+    }
+  }
+}
+
+// Protege contra quedas quando o WhatsApp Web redireciona durante avaliações internas do Puppeteer
+Client.prototype._registerFramenavigatedHandler = function () {
+  if (this._framenavigatedRegistered) return;
+  this._framenavigatedRegistered = true;
+
+  this.pupPage.on("framenavigated", async (frame) => {
+    if (frame.parentFrame() !== null) return;
+
+    const isLogout =
+      frame.url().includes("post_logout=1") || this.lastLoggedOut;
+
+    if (isLogout) {
+      this.emit("disconnected", "LOGOUT");
+      try {
+        await this.authStrategy.logout();
+      } catch (e) {}
+      try {
+        await this.authStrategy.beforeBrowserInitialized();
+        await this.authStrategy.afterBrowserInitialized();
+      } catch (e) {}
+      this.lastLoggedOut = false;
+    }
+
+    try {
+      const storeAvailable = await this.pupPage.evaluate(() => {
+        return typeof window.WWebJS !== "undefined";
+      });
+
+      if (!isLogout && storeAvailable) return;
+
+      await this.inject();
+    } catch (err) {
+      // Ignora erro de contexto destruído caso a página ainda esteja navegando
+    }
+  });
+};
+
+// Evita que erros pontuais de rede/navegação do Puppeteer fechem o bot
+process.on("unhandledRejection", (err) => {
+  if (
+    err &&
+    err.message &&
+    (err.message.includes("Execution context was destroyed") ||
+      err.message.includes("Target closed") ||
+      err.message.includes("Session closed"))
+  ) {
+    return;
+  }
+  console.error("⚠️ Erro assíncrono capturado:", err);
+});
 
 // =====================================
 // CONFIGURAÇÃO DO CLIENTE
 // =====================================
 const client = new Client({
-  authStrategy: new LocalAuth(),
+  authStrategy: new SafeLocalAuth({
+    dataPath: path.join(os.homedir(), ".wwebjs_auth_chatbot"),
+  }),
   puppeteer: {
     headless: true,
     args: [
@@ -22,7 +95,6 @@ const client = new Client({
       "--disable-setuid-sandbox",
       "--disable-dev-shm-usage",
       "--disable-gpu",
-      "--single-process",
     ],
   },
 });
